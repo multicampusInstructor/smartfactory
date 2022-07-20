@@ -1,46 +1,72 @@
-package lesson.day5;
+package lesson.day8;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Random;
-
+//로직 처리
 public class LottoMachine {
 	// 6개의 공을 선택하는 것
-	private LottoBall[] balls;
+	private ArrayList<LottoBall> balls;
 	public LottoMachine() { /*기본 생성자와 동일하나 명시적으로 나타내었음*/	}
-	public void setBalls(LottoBall[] balls) {
+	public void setBalls(ArrayList<LottoBall> balls) {
 		this.balls = balls;
 	}
 	// 아래getter는 사용하지 않음. 단지 정보은닉성을 구성하는 방법을 보여주는 예임
-	public LottoBall[] getBalls() {
+	public ArrayList<LottoBall> getBalls() {
 		return this.balls;
 	}
 	
 	public void startMachine() {
-		this.selectBalls();
-	}
-	private void selectBalls() {
-		// 선택된 6개의 볼을 출력한다.
-		LottoBall[] selectedBalls = new LottoBall[6];
-		for(int i=0;i<6;i++) {
-			selectedBalls[i] = this.getBall();
+		List<LottoBall> balls = null;
+		try {
+			balls = this.selectBalls();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		System.out.println("이번주의 당첨번호는 >>> ");
-		for(int i=0;i<selectedBalls.length;i++){
-			System.out.print(selectedBalls[i].getNumber()+" ");
+		//balls를 오름차순으로 정렬하여 코딩
+		Collections.sort(balls, new Comparator<LottoBall>() {
+			@Override
+			public int compare(LottoBall o1, LottoBall o2) {
+				// TODO Auto-generated method stub
+				return o1.getNumber() - o2.getNumber();
+			}
+		});
+		
+		//출력
+		System.out.println("이번주 로또 당첨번호는 >>> ");
+		for(LottoBall ball : balls) {
+			System.out.print(ball+" ");
 		}
 		System.out.println(" 입니다.");
+	}
+	
+	private void shufflueBalls() {
+		//볼을 섞는 코드
+		Collections.shuffle(balls);
+	}
+	
+	private List<LottoBall> selectBalls() throws InterruptedException {
+		// 선택된 6개의 볼을 출력한다.
+		List<LottoBall> selectedBalls = new ArrayList<LottoBall>();
+		for(int i=0;i<6;i++) {
+			this.shufflueBalls();
+			selectedBalls.add(this.getBall());
+			Thread.sleep(1000);
+		}
+				
+		return selectedBalls;
 	}
 	
 	private LottoBall getBall() {
 		LottoBall ball = null;
 		Random r = new Random();
-		while(true) {
-			int index = r.nextInt(45);
-			ball = balls[index];
-			if(!ball.isSelected()) { //중복처리 코드
-				break;
-			}
-		}
-		ball.setSelected(true);//뽑힌 공임을 표시함.
+		int index = r.nextInt(balls.size());
+		ball = balls.remove(index);
+		System.out.println(ball+"번 공이 뽑혔습니다.");
 		return ball;
 	}
 }

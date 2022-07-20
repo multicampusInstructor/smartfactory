@@ -1,9 +1,8 @@
-package lesson.day5;
-
+package lesson.day8;
+//데이터 표현
 public class LottoBall {
 	//ball의 정보를 갖고 있는것
 	private int number;
-	private boolean selected;
 	
 	public LottoBall(int number) {
 		this.number = number;
@@ -17,11 +16,10 @@ public class LottoBall {
 //		this.number = number;
 //	}
 	
-	public boolean isSelected() {
-		return this.selected;
-	}
 	
-	public void setSelected(boolean selected) {
-		this.selected = selected;
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return String.valueOf(this.number);
 	}
 }
