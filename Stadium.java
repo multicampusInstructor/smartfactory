@@ -1,5 +1,6 @@
 package lesson.day9;
 
+import java.util.HashSet;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -27,11 +28,19 @@ public class Stadium {
 				break;
 			}
 		}
+		System.out.println("hiddenNumber >>> "+number);
 		return number;
 	}
 	
 	public boolean isSameNumber(int[] numbers) {
 		boolean flag = false;
+		HashSet<Integer> set = new HashSet<Integer>();
+		for(int i=0;i<numbers.length;i++) {
+			set.add(numbers[i]);
+		}
+		if(set.size()!=4) {
+			flag = true;
+		}
 		
 		return flag;
 	}
@@ -54,6 +63,7 @@ public class Stadium {
 			strike = result[0];
 			ball = result[1];
 			if (strike==4 ) {
+				System.out.println("정답입니다.\n게임을 종료합니다.");
 				break;
 			}
 			System.out.println(strike+" strike(s), "+ball+" ball(s)");

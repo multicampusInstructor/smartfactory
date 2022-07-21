@@ -14,10 +14,10 @@ public class Umpire {
 	}
 	public int[] changeArray(int number) {
 		int[] result = new int[4];
-		int index = -3;
+		int index = 3;
 		for(int i=0;i<result.length;i++) {
 			int splitNumber = number % 10;
-			result[index++] = splitNumber;
+			result[index--] = splitNumber;
 			number = number / 10;	
 		}
 		
