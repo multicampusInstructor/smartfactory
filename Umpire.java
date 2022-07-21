@@ -1,9 +1,16 @@
-package lesson.day6;
+package lesson.day9;
 
 public class Umpire {
 	private int hiddenNumber;
 	public Umpire(int hn) {
 		this.hiddenNumber = hn;
+	}
+	
+	public int[] changeArray(int number) {
+		int[] result = new int[4];
+		
+		
+		return result;
 	}
 	// 4자리 정수로 스트라이크와 볼을 판정하겠다.
 	public int[]/*처리 결과는 어떤식으로 리턴되는가?*/ judgeNumber(int tryNumber/*요청은 어떤식으로 들어오는 가?*/) {
@@ -12,11 +19,26 @@ public class Umpire {
 		
 		// 요청숫자와 생성숫자를 비교하여 결과를 리턴해야 하는데
 		// hiddenNumber와 tryNumber를 비교하는 로직 생성
+		int[] hiddenNumbers = this.changeArray(hiddenNumber);
+		int[] tryNumbers = this.changeArray(tryNumber);
+		int strike = 0;
+		int ball = 0;
+		for(int i=0;i<hiddenNumbers.length;i++) {
+			for(int j=0;j<tryNumbers.length;j++) {
+				if(hiddenNumbers[i]==tryNumbers[j]) {
+					if(i==j) {
+						strike++;
+					} else {
+						ball++;
+					}
+				}
+			}
+		}
+		
+		result[0] = strike;
+		result[1] = ball;
 		// 종료조건이 4Strike가 종료조건이어서 4strike정보 전달
 		// 그리고 ball정보도 리턴해서 사용자가 사용할 수 있도록 해야 한다.
-		result[0] = 1;
-		result[1] = 2;
-		
 		return result;
 	}
 }
