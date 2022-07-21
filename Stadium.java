@@ -1,28 +1,48 @@
 package lesson.day9;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public class Stadium {
-
+	private Umpire umpire;
+	public Stadium() {
+		umpire = new Umpire();
+	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Stadium ncpark = new Stadium();
 		ncpark.playBall();
 	}
 	private int makeHiddenNumber() {
-		//4자리 숫자 생성 (중복없이)
+		// 4자리 숫자 생성 (중복없이)
 		// 4자리 숫자 생성(1000~9999)-중복숫자 있으면 안된다.
 		int number = 0;
-		
-		
+		Random r = new Random();
+		while(true) {
+			number = r.nextInt(9000)+1000;
+			int[] numbers = umpire.changeArray(number);
+			boolean flag = this.isSameNumber(numbers);
+			if(!flag) {
+				//중복 숫자가 없음
+				break;
+			}
+		}
 		return number;
 	}
+	
+	public boolean isSameNumber(int[] numbers) {
+		boolean flag = false;
+		
+		return flag;
+	}
+	
 	// 사용자와의 인터렉션 코드 작성
 	public void playBall() {
 		int hiddenNumber = this.makeHiddenNumber();
 		int strike = 0;
 		int ball = 0; // ball정보 추가
-		Umpire umpire = new Umpire(hiddenNumber);
+		
+		umpire.setHiddenNumber(hiddenNumber);
 		Scanner scan = new Scanner(System.in);
 		while(true) {
 			// 사용자로부터 4자리 숫자 입력(1000~9999)-중복숫자 있으면 안된다.

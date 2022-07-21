@@ -2,16 +2,29 @@ package lesson.day9;
 
 public class Umpire {
 	private int hiddenNumber;
-	public Umpire(int hn) {
+	public Umpire() {}
+	
+	//코드 설계상 불가능
+//	public Umpire(int hn) {
+//		this.hiddenNumber = hn;
+//	}
+	
+	public void setHiddenNumber(int hn) {
 		this.hiddenNumber = hn;
 	}
-	
 	public int[] changeArray(int number) {
 		int[] result = new int[4];
-		
+		int index = -3;
+		for(int i=0;i<result.length;i++) {
+			int splitNumber = number % 10;
+			result[index++] = splitNumber;
+			number = number / 10;	
+		}
 		
 		return result;
 	}
+	
+
 	// 4자리 정수로 스트라이크와 볼을 판정하겠다.
 	public int[]/*처리 결과는 어떤식으로 리턴되는가?*/ judgeNumber(int tryNumber/*요청은 어떤식으로 들어오는 가?*/) {
 		int[] result = new int[2]; //0->스트라이크 1->볼
