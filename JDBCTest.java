@@ -3,6 +3,7 @@ package lesson.jdbc.day1;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class JDBCTest {
 
@@ -37,9 +38,25 @@ public class JDBCTest {
 		
 	}
 	
-	public boolean insertData(String data) {
+	public boolean insertData(String data) throws SQLException {
+		//data를 gisa테이블에 삽입
 		boolean flag = false;
+		//990001,addx, 17, 29, 16, 49, 43,154,C,A,C
+		String[] temp = data.split(",");
+		//테이블에서 정의한 데이터인지 확인하고 전처리
 		
+		// 테이블 삽입 쿼리 작성
+		String sql = "";
+		// 컨넥션 객체 가져오기
+		Connection con= this.getConnection();
+		// 삽입 준비하기
+		Statement stmt = con.createStatement();
+		// 삽입하기
+		int affectedCount = stmt.executeUpdate(sql);
+		// 삽입결과 확인하고 flag에 세팅
+		if(affectedCount > 0) {
+			flag = true;
+		}
 		return flag;
 	}
 	
